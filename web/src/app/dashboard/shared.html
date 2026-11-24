@@ -1,0 +1,44 @@
+<div #grid class="grid-stack dashboard">
+  @for (w of widgets(); track w.uid) {
+    <div
+      class="grid-stack-item"
+      [attr.gs-id]="w.uid"
+      [attr.gs-x]="w.x"
+      [attr.gs-y]="w.y"
+      [attr.gs-w]="w.w"
+      [attr.gs-h]="w.h"
+    >
+      <div class="grid-stack-item-content">
+        <ng-container
+          *ngComponentOutlet="
+            componentFor(w);
+            inputs: {
+              params: w.params,
+              refreshSecs: w.refreshSecs,
+              freeMode: freeMode(),
+              onModify: () => openModify(w.uid)
+            }
+          "
+        />
+      </div>
+    </div>
+  }
+</div>
+
+@if (ui.addOpen()) {
+  <app-add-widget-dialog
+    [freeMode]="freeMode()"
+    (added)="add($event)"
+    (closed)="ui.addOpen.set(false)"
+  />
+}
+
+@if (editingWidget(); as widget) {
+  <app-modify-widget-dialog
+    [instance]="widget"
+    [freeMode]="freeMode()"
+    (saved)="modify($event)"
+    (deleted)="deleteFromDialog($event)"
+    (closed)="closeModify()"
+  />
+}

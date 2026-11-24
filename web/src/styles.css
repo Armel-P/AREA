@@ -1,0 +1,119 @@
+@import "tailwindcss";
+@import 'gridstack/dist/gridstack.min.css';
+
+:root {
+  --accent-soft: #2b1d3d;
+  --text-muted: color-mix(in srgb, var(--text) 60%, transparent);
+  --on-accent: #f3eefa;
+
+  --border: color-mix(in srgb, var(--text) 15%, transparent);
+  --radius: 8px;
+}
+
+@theme inline {
+  --color-card: var(--card);
+  --color-fg: var(--text);
+  --color-muted: var(--text-muted);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-danger: var(--error);
+  --color-line: var(--border);
+}
+
+:root {
+  color-scheme: dark;
+  --bg-top: #0f0a19;
+  --bg-bottom: #191423;
+  --card: #1e1923;
+  --text: #c3cdd7;
+  --accent: #6e32b4;
+  --accent-hover: #8246be;
+  --error: #d24b50;
+  --on-accent: #f3eefa;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+  --bg-top: #f0c896;
+  --bg-bottom: #e6dccd;
+  --card: #ebebeb;
+  --text: #3c3228;
+  --accent: #d2aa78;
+  --accent-hover: #c8a06e;
+  --error: #be4b41;
+  --on-accent: #3c3228;
+}
+
+[data-theme="kermit"] {
+  color-scheme: light;
+  --bg-top: #b9d9a4;
+  --bg-bottom: #e3f0d8;
+  --card: #f3f7ec;
+  --text: #173d25;
+  --accent: #2e783b;
+  --accent-hover: #205d2d;
+  --error: #b63b3b;
+  --on-accent: #ffffff;
+}
+
+[data-theme="go"] {
+  color-scheme: light;
+  --bg-top: #b9b457;
+  --bg-bottom: #c9c66f;
+  --card: #d8d58c;
+  --text: #000000;
+  --accent: #434f01;
+  --accent-hover: #303900;
+  --error: #860e0e;
+  --on-accent: #ffffff;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, var(--bg-top), var(--bg-bottom)) fixed;
+  color: var(--text);
+  font-family: system-ui, sans-serif;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: auto;
+  padding: 0.625rem 1rem;
+
+  background: var(--accent);
+  color: var(--on-accent);
+
+  border: 0;
+  border-radius: var(--radius);
+
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.2;
+
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    opacity 0.15s ease;
+}
+.btn:hover {
+  background: var(--accent-hover);
+}
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.error {
+  display: block;
+  color: var(--error);
+  font-size: 0.85rem;
+}
+
+a {
+  color: var(--accent);
+}

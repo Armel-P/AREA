@@ -1,0 +1,5 @@
+For backend: - rm mailpit and apply selfhost mailapi
+             - move it to backend/folder
+             - do what needed for the project
+
+For mirror: change folder

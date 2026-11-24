@@ -1,0 +1,121 @@
+<div class="profile-page">
+  <div class="profile-header">
+    <h1>Profile</h1>
+    <p>Manage your account and connected services.</p>
+  </div>
+
+  <div class="profile-grid">
+    <section class="profile-section account-section">
+      <h2>Account</h2>
+
+      <div class="field">
+        <span class="field-label">Name</span>
+        <span class="field-value">
+          {{ auth.user()?.name }}
+        </span>
+      </div>
+
+      <div class="field">
+        <span class="field-label">Email</span>
+        <span class="field-value">
+          {{ auth.user()?.mail }}
+        </span>
+      </div>
+
+      <div class="account-actions">
+        <button type="button" class="btn disconnect-btn" (click)="disconnect()" [disabled]="loading()">
+          {{ loading() ? 'Disconnecting...' : 'Disconnect' }}
+        </button>
+      </div>
+    </section>
+
+    <section class="profile-section services-section">
+      <h2>Connected services</h2>
+      <p class="section-description">
+        Connect your accounts to use their services in your dashboard.
+      </p>
+
+      <div class="services-list">
+        @for (service of oauthServices; track service) {
+          <div class="service">
+            <div>
+              <strong>{{ service }}</strong>
+
+              @switch (connectionStates()[service]) {
+                @case ('loading') {
+                  <span>Checking connection...</span>
+                }
+                @case ('connected') {
+                  <span>Connected</span>
+                }
+                @case ('disconnected') {
+                  <span>Not connected</span>
+                }
+                @case ('error') {
+                  <span>Unable to check connection</span>
+                }
+              }
+
+              @if (serviceErrors()[service]; as error) {
+                <span class="service-error">{{ error }}</span>
+              }
+            </div>
+
+            <div class="service-actions">
+              @if (connectionStates()[service] === 'error') {
+                <button
+                  type="button"
+                  class="btn"
+                  [disabled]="serviceActions()[service]"
+                  (click)="retryConnectionCheck(service)"
+                >
+                  Retry
+                </button>
+              } @else {
+                <button
+                  type="button"
+                  class="btn"
+                  [disabled]="
+                    connectionStates()[service] === 'loading' ||
+                    serviceActions()[service]
+                  "
+                  (click)="
+                    connectionStates()[service] === 'connected'
+                      ? disconnectService(service)
+                      : connectService(service)
+                  "
+                >
+                  @if (serviceActions()[service]) {
+                    Working...
+                  } @else if (connectionStates()[service] === 'connected') {
+                    Disconnect
+                  } @else {
+                    Connect
+                  }
+                </button>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+  </div>
+
+  <section class="danger-zone">
+    <div class="danger-content">
+      <h2>Delete account</h2>
+      <p>
+        Permanently delete your account and all associated data.
+      </p>
+    </div>
+
+    <button
+      type="button"
+      class="btn delete-btn"
+      (click)="deleteAccount()"
+      [disabled]="loading()"
+    >
+      {{ loading() ? 'Deleting...' : 'Delete account' }}
+    </button>
+  </section>
+</div>

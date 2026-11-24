@@ -1,0 +1,29 @@
+<header class="topbar">
+  <a class="brand" routerLink="">Dashboard</a>
+
+  <div class="actions">
+    @if (isDashboard()) {
+      <button class="btn" (click)="dashboardUiService.addOpen.set(true)">+ Add widget</button>
+    }
+
+    <div class="theme-selector">
+      <select [value]="themeService.currentTheme"
+              (change)="themeService.setTheme($any($event.target).value)"
+              aria-label="Select theme">
+        <option value="dark">Dark</option>
+        <option value="light">Light</option>
+        <option value="kermit">Kermit</option>
+        <option value="go">Go</option>
+      </select>
+    </div>
+
+    @if (authService.isAuthenticated) {
+      <a routerLink="/profile" class="account">
+        <span class="avatar">{{ authService.user()?.name?.[0] }}</span>
+        <span>{{ authService.user()?.name }}</span>
+      </a>
+    }
+  </div>
+</header>
+
+<router-outlet />

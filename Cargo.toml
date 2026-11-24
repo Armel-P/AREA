@@ -1,0 +1,67 @@
+[package]
+name = "dashboard"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+# Dotenv
+dotenvy = "0.15.7"
+
+# Logger
+env_logger = "0.11"
+log = "0.4"
+
+# HTTPS
+openssl = "0.10.81"
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Async
+tokio = { version = "1", features = ["rt", "macros", "rt-multi-thread", "sync", "time"] }
+futures-util = "0.3"
+async-trait = "0.1.92"
+
+# UUID
+uuid = { version = "1.24", features = ["serde", "v4"] }
+
+# Db
+diesel = { version = "2", features = ["postgres_backend", "chrono", "uuid", "serde_json"] }
+diesel-async = { version = "0.7", features = ["postgres", "deadpool", "async-connection-wrapper"] }
+diesel_migrations = "2"
+
+# Mail
+lettre = { version = "0.11", default-features = false, features = ["builder", "smtp-transport", "tokio1"] }
+
+# Web
+actix = "0.13"
+actix-files = "0.7.0"
+actix-web = { version = "4.14", features = ["openssl"] }
+actix-ws = "0.4"
+reqwest = { version = "0.13", features = ["json", "form", "query"] }
+
+# Swagger UI documentation
+utoipa = { version = "6.0", features = ["uuid", "macros", "chrono"] }
+utoipa-swagger-ui = { version = "9", features = ["actix-web"] }
+
+# Error handling
+anyhow = "1.0.104"
+thiserror = "2.0.21"
+tracing = "0.1.44"
+
+# Time
+chrono = { version = "0.4.45", features = ["serde"] }
+
+# Encryption
+argon2 = "0.5"
+jsonwebtoken = { version = "11.1.0", features = ["rust_crypto"] }
+password-hash = { version = "0.5", features = ["rand_core"] }
+rand_core = { version = "0.6", features = ["getrandom"] }
+rand = "0.9"
+hex = "0.4.3"
+sha2 = "0.11.0"
+base64 = "0.22"
+aes-gcm = "0.10"
+
+dashmap = "6.2.1"
